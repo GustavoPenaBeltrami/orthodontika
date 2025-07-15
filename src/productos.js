@@ -219,7 +219,7 @@ function loadProducts() {
         <div class="aspect-square bg-gray-200 overflow-hidden">
           <img src="${producto.img || '/placeholder.png'}" 
                alt="${producto.nombre}" 
-               class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+               class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300"
                onerror="this.src='/placeholder.png'">
         </div>
         

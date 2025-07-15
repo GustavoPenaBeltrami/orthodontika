@@ -213,7 +213,7 @@ El carrito utiliza localStorage para persistir entre sesiones y incluye:
 ### WhatsApp
 Editar en `src/components.js` y `src/carrito.js`:
 ```javascript
-const whatsappNumber = '5491123456789'; // Cambiar por número real
+const whatsappNumber = '5493517604756'; // Cambiar por número real
 ```
 
 ### Email

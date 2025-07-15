@@ -213,8 +213,8 @@ export function createHeader() {
 
 // Componente Footer
 export function createFooter() {
-    return `
-    <footer class="bg-gray-200 text-black">
+  return `
+    <footer class="bg-gray-50 text-black">
       <div class="container mx-auto px-4 py-12">
         <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
           <!-- Company Info -->
@@ -222,25 +222,19 @@ export function createFooter() {
             <div class="flex items-center space-x-2 mb-4">
               <img src="/LogoOrthodontika2.png" alt="Orthodontika" class="h-10 w-auto">
             </div>
-            <p class="text-gray-300 mb-4">
+            <p class="text-gray-800 mb-4">
               Especialistas en productos ortodónticos de alta calidad. 
               Ofrecemos brackets, alicates, accesorios y todo lo necesario para tu práctica profesional.
             </p>
             <div class="flex space-x-4">
-              <a href="#" class="text-gray-300 hover:text-white transition-colors">
-                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/>
-                </svg>
+              <a href="#" class="text-gray-800 hover:text-white transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24"><path fill="currentColor" d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2m-.2 2A3.6 3.6 0 0 0 4 7.6v8.8C4 18.39 5.61 20 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6C20 5.61 18.39 4 16.4 4zm9.65 1.5a1.25 1.25 0 0 1 1.25 1.25A1.25 1.25 0 0 1 17.25 8A1.25 1.25 0 0 1 16 6.75a1.25 1.25 0 0 1 1.25-1.25M12 7a5 5 0 0 1 5 5a5 5 0 0 1-5 5a5 5 0 0 1-5-5a5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3a3 3 0 0 0 3 3a3 3 0 0 0 3-3a3 3 0 0 0-3-3"/></svg>
               </a>
-              <a href="#" class="text-gray-300 hover:text-white transition-colors">
-                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M22.46 6c-.77.35-1.6.58-2.46.69.88-.53 1.56-1.37 1.88-2.38-.83.5-1.75.85-2.72 1.05C18.37 4.5 17.26 4 16 4c-2.35 0-4.27 1.92-4.27 4.29 0 .34.04.67.11.98C8.28 9.09 5.11 7.38 3 4.79c-.37.63-.58 1.37-.58 2.15 0 1.49.75 2.81 1.91 3.56-.71 0-1.37-.2-1.95-.5v.03c0 2.08 1.48 3.82 3.44 4.21a4.22 4.22 0 0 1-1.93.07 4.28 4.28 0 0 0 4 2.98 8.521 8.521 0 0 1-5.33 1.84c-.34 0-.68-.02-1.02-.06C3.44 20.29 5.7 21 8.12 21 16 21 20.33 14.46 20.33 8.79c0-.19 0-.37-.01-.56.84-.6 1.56-1.36 2.14-2.23z"/>
-                </svg>
+              <a href="#" class="text-gray-800 hover:text-white transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24"><path fill="currentColor" d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c5.05-.5 9-4.76 9-9.95"/></svg>
               </a>
-              <a href="#" class="text-gray-300 hover:text-white transition-colors">
-                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.174-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.957 1.406-5.957s-.359-.219-.359-1.219c0-1.142.662-1.995 1.488-1.995.219 0 .359.162.359.359 0 .219-.139.219-.139.578-.219.937.219 2.403 1.406 2.403 1.406 0 2.482-1.487 2.482-3.66 0-1.915-1.377-3.252-3.344-3.252-2.344 0-3.711 1.756-3.711 3.57 0 .717.275 1.487.619 1.904.069.08.078.149.058.229-.063.265-.203.822-.232.937-.037.149-.123.18-.283.108-1.001-.465-1.624-1.926-1.624-3.1 0-2.523 1.834-4.84 5.287-4.84 2.781 0 4.943 1.983 4.943 4.628 0 2.757-1.739 4.976-4.151 4.976-.811 0-1.573-.421-1.834-.931l-.498 1.902c-.181.695-.675 1.566-1.003 2.098.756.234 1.554.359 2.395.359 6.621 0 11.99-5.367 11.99-11.987C24.007 5.367 18.638.001 12.017.001z"/>
-                </svg>
+              <a href="#" class="text-gray-800 hover:text-white transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24"><path fill="currentColor" d="M16.6 5.82s.51.5 0 0A4.28 4.28 0 0 1 15.54 3h-3.09v12.4a2.59 2.59 0 0 1-2.59 2.5c-1.42 0-2.6-1.16-2.6-2.6c0-1.72 1.66-3.01 3.37-2.48V9.66c-3.45-.46-6.47 2.22-6.47 5.64c0 3.33 2.76 5.7 5.69 5.7c3.14 0 5.69-2.55 5.69-5.7V9.01a7.35 7.35 0 0 0 4.3 1.38V7.3s-1.88.09-3.24-1.48"/></svg>
               </a>
             </div>
           </div>
@@ -249,16 +243,16 @@ export function createFooter() {
           <div>
             <h3 class="text-lg font-semibold mb-4">Enlaces Rápidos</h3>
             <ul class="space-y-2">
-              <li><a href="/" class="text-gray-300 hover:text-white transition-colors">Inicio</a></li>
-              <li><a href="/productos.html" class="text-gray-300 hover:text-white transition-colors">Productos</a></li>
-              <li><a href="/carrito.html" class="text-gray-300 hover:text-white transition-colors">Carrito</a></li>
+              <li><a href="/" class="text-gray-800 hover:text-gray-500 transition-colors">Inicio</a></li>
+              <li><a href="/productos.html" class="text-gray-800 hover:text-gray-500 transition-colors">Productos</a></li>
+              <li><a href="/carrito.html" class="text-gray-800 hover:text-gray-500 transition-colors">Carrito</a></li>
             </ul>
           </div>
 
           <!-- Contact Info -->
           <div>
             <h3 class="text-lg font-semibold mb-4">Contacto</h3>
-            <ul class="space-y-2 text-gray-300">
+            <ul class="space-y-2 text-gray-800">
               <li class="flex items-center space-x-2">
                 <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                   <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path>
@@ -270,19 +264,19 @@ export function createFooter() {
                 <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                   <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"></path>
                 </svg>
-                <span>Buenos Aires, Argentina</span>
+                <span>Córdoba, Argentina</span>
               </li>
               <li class="flex items-center space-x-2">
                 <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                   <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"></path>
                 </svg>
-                <span>+54 11 1234-5678</span>
+                <span>+54 9 351 760-4756</span>
               </li>
             </ul>
           </div>
         </div>
 
-        <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-300">
+        <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-800">
           <p>&copy; 2025 Orthodontika. Todos los derechos reservados.</p>
         </div>
       </div>
@@ -295,7 +289,7 @@ export function initializeHeader() {
   // Mobile menu toggle
   const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
   const mobileMenu = document.getElementById('mobile-menu');
-  
+
   if (mobileMenuToggle && mobileMenu) {
     mobileMenuToggle.addEventListener('click', () => {
       mobileMenu.classList.toggle('hidden');
@@ -310,24 +304,24 @@ export function initializeHeader() {
       const targetId = trigger.getAttribute('data-target');
       const content = document.getElementById(targetId);
       const icon = trigger.querySelector('svg');
-      
+
       if (content && icon) {
         const isHidden = content.classList.contains('hidden');
-        
+
         // Close all other mobile dropdowns
         document.querySelectorAll('.mobile-dropdown-content').forEach(el => {
           if (el !== content) {
             el.classList.add('hidden');
           }
         });
-        
+
         // Reset all other icons
         document.querySelectorAll('.mobile-dropdown-trigger svg').forEach(el => {
           if (el !== icon) {
             el.classList.remove('rotate-180');
           }
         });
-        
+
         // Toggle current dropdown
         content.classList.toggle('hidden');
         icon.classList.toggle('rotate-180');
@@ -354,7 +348,7 @@ export function initializeHeader() {
   const cartToggleMobile = document.getElementById('cart-toggle-mobile');
   const cartModal = document.getElementById('cart-modal');
   const closeCart = document.getElementById('close-cart');
-  
+
   if (cartModal && closeCart) {
     // Desktop cart button
     if (cartToggle) {
@@ -405,33 +399,33 @@ window.sendWhatsAppMessage = sendWhatsAppMessage;
 
 // Actualizar contador del carrito
 function updateCartCount() {
-    const cartCount = document.getElementById('cart-count');
-    const cartCountMobile = document.getElementById('cart-count-mobile');
-    
-    const totalItems = appState.getTotalItems();
-    
-    // Update desktop cart count
-    if (cartCount) {
-        cartCount.textContent = totalItems;
-        cartCount.style.display = totalItems > 0 ? 'flex' : 'none';
-    }
-    
-    // Update mobile cart count
-    if (cartCountMobile) {
-        cartCountMobile.textContent = totalItems;
-        cartCountMobile.style.display = totalItems > 0 ? 'flex' : 'none';
-    }
+  const cartCount = document.getElementById('cart-count');
+  const cartCountMobile = document.getElementById('cart-count-mobile');
+
+  const totalItems = appState.getTotalItems();
+
+  // Update desktop cart count
+  if (cartCount) {
+    cartCount.textContent = totalItems;
+    cartCount.style.display = totalItems > 0 ? 'flex' : 'none';
+  }
+
+  // Update mobile cart count
+  if (cartCountMobile) {
+    cartCountMobile.textContent = totalItems;
+    cartCountMobile.style.display = totalItems > 0 ? 'flex' : 'none';
+  }
 }
 
 // Actualizar modal del carrito
 function updateCartModal() {
-    const cartItems = document.getElementById('cart-items');
-    const cartTotal = document.getElementById('cart-total');
+  const cartItems = document.getElementById('cart-items');
+  const cartTotal = document.getElementById('cart-total');
 
-    if (!cartItems || !cartTotal) return;
+  if (!cartItems || !cartTotal) return;
 
-    if (appState.carrito.length === 0) {
-        cartItems.innerHTML = `
+  if (appState.carrito.length === 0) {
+    cartItems.innerHTML = `
       <div class="text-center py-8">
         <svg class="w-16 h-16 text-gray-300 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-1.5 6M7 13h10m-10 0l-1.5 6m1.5-6h10m0 0v6a2 2 0 01-2 2H9a2 2 0 01-2-2v-6z"></path>
@@ -439,8 +433,8 @@ function updateCartModal() {
         <p class="text-gray-500">Tu carrito está vacío</p>
       </div>
     `;
-    } else {
-        cartItems.innerHTML = appState.carrito.map(item => `
+  } else {
+    cartItems.innerHTML = appState.carrito.map(item => `
       <div class="flex items-start space-x-3 py-4 border-b">
         <div class="aspect-square w-16 bg-gray-200 overflow-hidden rounded">
           <img src="${item.img || '/placeholder.png'}" alt="${item.nombre}" class="w-full h-full object-cover"
@@ -478,54 +472,54 @@ function updateCartModal() {
         </button>
       </div>
     `).join('');
-    }
+  }
 
-    cartTotal.textContent = `$${appState.getTotal().toFixed(2)}`;
+  cartTotal.textContent = `$${appState.getTotal().toFixed(2)}`;
 }
 
 // Función global para remover del carrito
 window.removeFromCart = function (productId) {
-    appState.removeFromCarrito(productId);
+  appState.removeFromCarrito(productId);
 };
 
 // Función global para actualizar cantidad en el carrito
 window.updateCartQuantity = function (productId, newQuantity) {
-    if (newQuantity <= 0) {
-        appState.removeFromCarrito(productId);
-    } else if (newQuantity <= 99) { // Límite máximo
-        appState.updateCantidad(productId, newQuantity);
-    }
+  if (newQuantity <= 0) {
+    appState.removeFromCarrito(productId);
+  } else if (newQuantity <= 99) { // Límite máximo
+    appState.updateCantidad(productId, newQuantity);
+  }
 };
 
 // Enviar carrito por WhatsApp
 function sendWhatsAppMessage() {
-    if (appState.carrito.length === 0) {
-        alert('El carrito está vacío');
-        return;
-    }
+  if (appState.carrito.length === 0) {
+    alert('El carrito está vacío');
+    return;
+  }
 
-    let message = '¡Hola! Me interesa realizar el siguiente pedido:\n\n';
+  let message = '¡Hola! Me interesa realizar el siguiente pedido:\n\n';
 
-    appState.carrito.forEach(item => {
-        message += `• ${item.nombre}\n`;
-        message += `  Cantidad: ${item.cantidad}\n`;
-        message += `  Precio unitario: $${item.precio}\n`;
-        message += `  Subtotal: $${item.precio * item.cantidad}\n\n`;
-    });
+  appState.carrito.forEach(item => {
+    message += `• ${item.nombre}\n`;
+    message += `  Cantidad: ${item.cantidad}\n`;
+    message += `  Precio unitario: $${item.precio}\n`;
+    message += `  Subtotal: $${item.precio * item.cantidad}\n\n`;
+  });
 
-    message += `Total: $${appState.getTotal()}\n\n`;
-    message += 'Muchas gracias!';
+  message += `Total: $${appState.getTotal()}\n\n`;
+  message += 'Muchas gracias!';
 
-    const whatsappNumber = '5491123456789'; // Reemplazar con el número real
-    const encodedMessage = encodeURIComponent(message);
-    const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
+  const whatsappNumber = '5493517604756'; // Reemplazar con el número real
+  const encodedMessage = encodeURIComponent(message);
+  const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
 
-    window.open(whatsappURL, '_blank');
+  window.open(whatsappURL, '_blank');
 }
 
 // Botón flotante de WhatsApp
 export function createFloatingWhatsAppButton() {
-    return `
+  return `
         <div id="floating-whatsapp" class="fixed bottom-6 right-6 z-50">
             <button 
                 onclick="openWhatsApp()"
@@ -545,23 +539,23 @@ export function createFloatingWhatsAppButton() {
 }
 
 // Función global para abrir WhatsApp (consulta general)
-window.openWhatsApp = function() {
-    const message = '¡Hola! Me gustaría obtener más información sobre sus productos ortodónticos.';
-    const whatsappNumber = '5491123456789'; // Reemplazar con el número real
-    const encodedMessage = encodeURIComponent(message);
-    const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
-    
-    window.open(whatsappURL, '_blank');
+window.openWhatsApp = function () {
+  const message = '¡Hola! Me gustaría obtener más información sobre sus productos ortodónticos.';
+  const whatsappNumber = '5493517604756'; // Reemplazar con el número real
+  const encodedMessage = encodeURIComponent(message);
+  const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
+
+  window.open(whatsappURL, '_blank');
 };
 
 // Inicializar botón flotante de WhatsApp
 export function initializeFloatingWhatsApp() {
-    // Verificar si ya existe para evitar duplicados
-    const existingButton = document.getElementById('floating-whatsapp');
-    if (existingButton) {
-        existingButton.remove();
-    }
-    
-    // Agregar el botón al body
-    document.body.insertAdjacentHTML('beforeend', createFloatingWhatsAppButton());
+  // Verificar si ya existe para evitar duplicados
+  const existingButton = document.getElementById('floating-whatsapp');
+  if (existingButton) {
+    existingButton.remove();
+  }
+
+  // Agregar el botón al body
+  document.body.insertAdjacentHTML('beforeend', createFloatingWhatsAppButton());
 }

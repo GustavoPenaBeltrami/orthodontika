@@ -232,7 +232,7 @@ function shareToWhatsApp() {
   if (!currentProduct) return;
   
   const message = `¡Mira este producto de Orthodontika!\n\n${currentProduct.nombre}\nPrecio: $${currentProduct.precio}\n\n${window.location.href}`;
-  const whatsappNumber = '5491123456789'; // Replace with actual number
+  const whatsappNumber = '5493517604756'; // Replace with actual number
   const encodedMessage = encodeURIComponent(message);
   const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
   
@@ -275,7 +275,7 @@ function loadRelatedProducts() {
       <div class="aspect-square bg-gray-200 overflow-hidden">
         <img src="${producto.img || '/placeholder.png'}" 
              alt="${producto.nombre}" 
-             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+             class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300"
              onerror="this.src='/placeholder.png'">
       </div>
       <div class="p-4">

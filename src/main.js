@@ -40,17 +40,17 @@ function loadCategories() {
         const firstProduct = categoryProducts[0];
         
         return `
-          <div class="card group cursor-pointer" onclick="window.location.href='/productos.html?categoria=${encodeURIComponent(categoria)}'">
+          <div class="card group cursor-pointer" onclick="window.location.href='/productos?categoria=${encodeURIComponent(categoria)}'">
       <div class="aspect-square bg-gray-200 overflow-hidden">
         <img src="${firstProduct?.img || '/placeholder.png'}" 
              alt="${categoria}" 
-             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+             class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300"
              onerror="this.src='/placeholder.png'">
             </div>
             <div class="p-6">
               <h3 class="text-xl font-semibold mb-2">${categoria}</h3>
               <p class="text-gray-600 mb-4">${categoryProducts.length} productos disponibles</p>
-              <div class="flex items-center text-primary-800 font-medium">
+              <div class="flex items-center text-accent-600 font-medium">
                 Explorar ${categoria}
                 <svg class="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
@@ -95,7 +95,7 @@ function loadFeaturedProducts() {
       <div class="aspect-square bg-gray-200 overflow-hidden">
         <img src="${producto.img || '/placeholder.png'}" 
              alt="${producto.nombre}" 
-             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+             class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300"
              onerror="this.src='/placeholder.png'">
       </div>
       <div class="p-4">

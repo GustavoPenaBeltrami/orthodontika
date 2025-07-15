@@ -283,7 +283,7 @@ function sendToWhatsApp() {
   
   // WhatsApp doesn't require contact form validation
   const message = generateOrderMessage();
-  const whatsappNumber = '5491123456789'; // Replace with actual number
+  const whatsappNumber = '5493517604756'; // Replace with actual number
   const encodedMessage = encodeURIComponent(message);
   const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
   
