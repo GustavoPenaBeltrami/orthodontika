@@ -1,5 +1,5 @@
 import './style.css';
-import { createHeader, createFooter, initializeHeader } from './components.js';
+import { createHeader, createFooter, initializeHeader, initializeFloatingWhatsApp } from './components.js';
 import { appState } from './state.js';
 import productos from './data.js';
 
@@ -13,6 +13,9 @@ document.addEventListener('DOMContentLoaded', () => {
   
   // Initialize header functionality
   initializeHeader();
+  
+  // Initialize floating WhatsApp button
+  initializeFloatingWhatsApp();
   
   // Load product
   loadProduct();
@@ -135,9 +138,9 @@ function displayProduct() {
     if (validImages.length > 0) {
       imageGallery.innerHTML = [product.img, ...validImages].map((img, index) => `
         <div class="aspect-w-1 aspect-h-1 bg-gray-200 rounded-lg overflow-hidden cursor-pointer hover:opacity-75 transition-opacity">
-          <img src="${img}" alt="${product.nombre} ${index + 1}" 
+          <img src="${img || '/placeholder.png'}" alt="${product.nombre} ${index + 1}" 
                class="w-full h-full object-cover"
-               onclick="changeMainImage('${img}')"
+               onclick="changeMainImage('${img || '/placeholder.png'}')"
                onerror="this.src='/placeholder.png'">
         </div>
       `).join('');
@@ -270,7 +273,7 @@ function loadRelatedProducts() {
   document.getElementById('related-products').innerHTML = relatedProducts.map(producto => `
     <div class="card group cursor-pointer" onclick="window.location.href='/producto.html?id=${producto.id}'">
       <div class="aspect-square bg-gray-200 overflow-hidden">
-        <img src="${producto.img}" 
+        <img src="${producto.img || '/placeholder.png'}" 
              alt="${producto.nombre}" 
              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
              onerror="this.src='/placeholder.png'">

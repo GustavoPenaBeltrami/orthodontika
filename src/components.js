@@ -8,7 +8,7 @@ export function createHeader() {
         <div class="flex items-center justify-between py-4">
           <!-- Logo -->
           <a href="/" class="flex items-center space-x-2">
-            <img src="/LogoOrthodontika1.png" alt="Orthodontika" class="h-12 w-auto">
+            <img src="/LogoOrthodontika2.png" alt="Orthodontika" class="h-12 w-auto">
           </a>
 
           <!-- Navigation Desktop -->
@@ -76,8 +76,6 @@ export function createHeader() {
                 </div>
               </div>
             </div>
-            
-            <a href="#contacto" class="text-gray-700 hover:text-primary-800 transition-colors">Contacto</a>
             
             <!-- Cart Icon Desktop -->
             <button id="cart-toggle" class="relative p-2 text-gray-700 hover:text-primary-800 transition-colors">
@@ -161,8 +159,6 @@ export function createHeader() {
               </div>
             </div>
             
-            <a href="#contacto" class="text-gray-700 hover:text-primary-800 transition-colors">Contacto</a>
-            
             <!-- Mobile Cart Link -->
             <button id="cart-toggle-mobile" class="flex items-center space-x-2 text-gray-700 hover:text-primary-800 transition-colors">
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 512 512">
@@ -218,7 +214,7 @@ export function createHeader() {
 // Componente Footer
 export function createFooter() {
     return `
-    <footer class="bg-gray-900 text-white">
+    <footer class="bg-gray-200 text-black">
       <div class="container mx-auto px-4 py-12">
         <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
           <!-- Company Info -->
@@ -256,7 +252,6 @@ export function createFooter() {
               <li><a href="/" class="text-gray-300 hover:text-white transition-colors">Inicio</a></li>
               <li><a href="/productos.html" class="text-gray-300 hover:text-white transition-colors">Productos</a></li>
               <li><a href="/carrito.html" class="text-gray-300 hover:text-white transition-colors">Carrito</a></li>
-              <li><a href="#contacto" class="text-gray-300 hover:text-white transition-colors">Contacto</a></li>
             </ul>
           </div>
 
@@ -401,9 +396,12 @@ export function initializeHeader() {
   // WhatsApp button
   const sendWhatsAppBtn = document.getElementById('send-whatsapp');
   if (sendWhatsAppBtn) {
-    sendWhatsAppBtn.addEventListener('click', sendToWhatsApp);
+    sendWhatsAppBtn.addEventListener('click', sendWhatsAppMessage);
   }
 }
+
+// Hacer la función global para que pueda ser llamada desde el HTML
+window.sendWhatsAppMessage = sendWhatsAppMessage;
 
 // Actualizar contador del carrito
 function updateCartCount() {
@@ -443,15 +441,37 @@ function updateCartModal() {
     `;
     } else {
         cartItems.innerHTML = appState.carrito.map(item => `
-      <div class="flex items-center space-x-3 py-3 border-b">
-        <div class="aspect-square w-12 bg-gray-200 overflow-hidden rounded">
-          <img src="${item.img}" alt="${item.nombre}" class="w-full h-full object-cover">
+      <div class="flex items-start space-x-3 py-4 border-b">
+        <div class="aspect-square w-16 bg-gray-200 overflow-hidden rounded">
+          <img src="${item.img || '/placeholder.png'}" alt="${item.nombre}" class="w-full h-full object-cover"
+               onerror="this.src='/placeholder.png'">
         </div>
-        <div class="flex-1">
-          <h4 class="text-sm font-medium">${item.nombre}</h4>
-          <p class="text-sm text-gray-500">$${item.precio} x ${item.cantidad}</p>
+        <div class="flex-1 min-w-0">
+          <h4 class="text-sm font-medium line-clamp-2 mb-1">${item.nombre}</h4>
+          <p class="text-sm text-gray-500 mb-2">$${item.precio} c/u</p>
+          
+          <!-- Quantity Controls -->
+          <div class="flex items-center space-x-2 mb-2">
+            <button onclick="updateCartQuantity('${item.id}', ${item.cantidad - 1})" 
+                    class="w-6 h-6 rounded-full border border-gray-300 flex items-center justify-center text-gray-500 hover:text-gray-700 hover:border-gray-400 ${item.cantidad <= 1 ? 'opacity-50 cursor-not-allowed' : ''}"
+                    ${item.cantidad <= 1 ? 'disabled' : ''}>
+              <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4"></path>
+              </svg>
+            </button>
+            <span class="text-sm font-medium min-w-[2rem] text-center">${item.cantidad}</span>
+            <button onclick="updateCartQuantity('${item.id}', ${item.cantidad + 1})" 
+                    class="w-6 h-6 rounded-full border border-gray-300 flex items-center justify-center text-gray-500 hover:text-gray-700 hover:border-gray-400">
+              <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+              </svg>
+            </button>
+          </div>
+          
+          <p class="text-sm font-semibold text-primary-800">Subtotal: $${(item.precio * item.cantidad).toFixed(2)}</p>
         </div>
-        <button onclick="removeFromCart('${item.id}')" class="text-red-500 hover:text-red-700">
+        
+        <button onclick="removeFromCart('${item.id}')" class="text-red-500 hover:text-red-700 p-1">
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
           </svg>
@@ -460,7 +480,7 @@ function updateCartModal() {
     `).join('');
     }
 
-    cartTotal.textContent = `$${appState.getTotal()}`;
+    cartTotal.textContent = `$${appState.getTotal().toFixed(2)}`;
 }
 
 // Función global para remover del carrito
@@ -468,8 +488,17 @@ window.removeFromCart = function (productId) {
     appState.removeFromCarrito(productId);
 };
 
+// Función global para actualizar cantidad en el carrito
+window.updateCartQuantity = function (productId, newQuantity) {
+    if (newQuantity <= 0) {
+        appState.removeFromCarrito(productId);
+    } else if (newQuantity <= 99) { // Límite máximo
+        appState.updateCantidad(productId, newQuantity);
+    }
+};
+
 // Enviar carrito por WhatsApp
-function sendToWhatsApp() {
+function sendWhatsAppMessage() {
     if (appState.carrito.length === 0) {
         alert('El carrito está vacío');
         return;
@@ -492,4 +521,47 @@ function sendToWhatsApp() {
     const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
 
     window.open(whatsappURL, '_blank');
+}
+
+// Botón flotante de WhatsApp
+export function createFloatingWhatsAppButton() {
+    return `
+        <div id="floating-whatsapp" class="fixed bottom-6 right-6 z-50">
+            <button 
+                onclick="openWhatsApp()"
+                class="bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-lg transition-all duration-300 hover:scale-105 group"
+                title="Contactar por WhatsApp"
+            >
+                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 2.079.53 4.126 1.534 5.932L0 24l6.203-1.517c1.746.95 3.712 1.444 5.814 1.444 6.621 0 11.987-5.367 11.987-11.987C23.973 5.367 18.637.001 12.017.001zM12.017 21.947c-1.746 0-3.492-.462-5.006-1.299l-.359-.214-3.714.908.93-3.622-.235-.373c-.922-1.513-1.41-3.259-1.41-5.078 0-5.486 4.466-9.952 9.952-9.952s9.952 4.466 9.952 9.952-4.466 9.952-9.952 9.952z"/>
+                    <path d="M17.233 14.268c-.301-.151-1.78-.879-2.056-.979-.277-.101-.478-.151-.679.151-.201.301-.78.979-.958 1.179-.177.201-.354.226-.655.075-.301-.151-1.271-.469-2.42-1.493-.895-.798-1.5-1.785-1.677-2.086-.177-.301-.019-.464.132-.614.135-.135.301-.354.452-.531.15-.177.201-.301.301-.502.101-.201.051-.377-.025-.528-.075-.151-.679-1.636-.93-2.241-.245-.587-.494-.508-.679-.517-.177-.008-.378-.01-.579-.01-.201 0-.528.075-.804.377-.277.301-1.057 1.033-1.057 2.518s1.082 2.92 1.233 3.121c.151.201 2.133 3.259 5.168 4.571.722.312 1.286.498 1.726.637.725.231 1.386.198 1.909.12.583-.087 1.78-.728 2.032-1.431.252-.703.252-1.305.177-1.431-.075-.125-.277-.201-.578-.352z"/>
+                </svg>
+                <span class="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center group-hover:animate-pulse">
+                    !
+                </span>
+            </button>
+        </div>
+    `;
+}
+
+// Función global para abrir WhatsApp (consulta general)
+window.openWhatsApp = function() {
+    const message = '¡Hola! Me gustaría obtener más información sobre sus productos ortodónticos.';
+    const whatsappNumber = '5491123456789'; // Reemplazar con el número real
+    const encodedMessage = encodeURIComponent(message);
+    const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
+    
+    window.open(whatsappURL, '_blank');
+};
+
+// Inicializar botón flotante de WhatsApp
+export function initializeFloatingWhatsApp() {
+    // Verificar si ya existe para evitar duplicados
+    const existingButton = document.getElementById('floating-whatsapp');
+    if (existingButton) {
+        existingButton.remove();
+    }
+    
+    // Agregar el botón al body
+    document.body.insertAdjacentHTML('beforeend', createFloatingWhatsAppButton());
 }

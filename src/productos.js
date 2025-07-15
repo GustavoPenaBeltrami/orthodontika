@@ -1,5 +1,5 @@
 import './style.css';
-import { createHeader, createFooter, initializeHeader } from './components.js';
+import { createHeader, createFooter, initializeHeader, initializeFloatingWhatsApp } from './components.js';
 import { appState } from './state.js';
 import productos from './data.js';
 
@@ -16,6 +16,9 @@ document.addEventListener('DOMContentLoaded', () => {
   
   // Initialize header functionality
   initializeHeader();
+  
+  // Initialize floating WhatsApp button
+  initializeFloatingWhatsApp();
   
   // Load page content
   initializeFilters();
@@ -214,7 +217,7 @@ function loadProducts() {
     productsGrid.innerHTML = paginatedProducts.map(producto => `
       <div class="card group">
         <div class="aspect-square bg-gray-200 overflow-hidden">
-          <img src="${producto.img}" 
+          <img src="${producto.img || '/placeholder.png'}" 
                alt="${producto.nombre}" 
                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                onerror="this.src='/placeholder.png'">

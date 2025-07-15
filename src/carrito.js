@@ -1,5 +1,5 @@
 import './style.css';
-import { createHeader, createFooter, initializeHeader } from './components.js';
+import { createHeader, createFooter, initializeHeader, initializeFloatingWhatsApp } from './components.js';
 import { appState } from './state.js';
 
 // Initialize the page
@@ -10,6 +10,9 @@ document.addEventListener('DOMContentLoaded', () => {
   
   // Initialize header functionality
   initializeHeader();
+  
+  // Initialize floating WhatsApp button
+  initializeFloatingWhatsApp();
   
   // Setup event listeners
   setupEventListeners();
@@ -66,7 +69,7 @@ function loadCartItems() {
         <!-- Product Image -->
         <div class="flex-shrink-0">
           <div class="aspect-square w-20 bg-gray-200 overflow-hidden rounded-lg">
-            <img src="${item.img}" 
+            <img src="${item.img || '/placeholder.png'}" 
                  alt="${item.nombre}" 
                  class="w-full h-full object-cover"
                  onerror="this.src='/placeholder.png'">
@@ -126,9 +129,33 @@ function updateSummary() {
   const totalItems = appState.getTotalItems();
   const totalPrice = appState.getTotal();
   
+  // Generate category summary
+  const categorySummary = {};
+  appState.carrito.forEach(item => {
+    if (categorySummary[item.categoria]) {
+      categorySummary[item.categoria] += item.cantidad;
+    } else {
+      categorySummary[item.categoria] = item.cantidad;
+    }
+  });
+
+  // Update category summary display
+  const categorySummaryElement = document.getElementById('category-summary');
+  if (Object.keys(categorySummary).length > 0) {
+    categorySummaryElement.innerHTML = Object.entries(categorySummary)
+      .sort(([a], [b]) => a.localeCompare(b)) // Sort alphabetically
+      .map(([category, count]) => `
+        <div class="flex justify-between text-sm">
+          <span class="text-gray-600">${category}</span>
+          <span class="text-gray-900 font-medium">(${count})</span>
+        </div>
+      `).join('');
+  } else {
+    categorySummaryElement.innerHTML = '<div class="text-sm text-gray-500">No hay productos en el carrito</div>';
+  }
+  
   document.getElementById('total-items').textContent = totalItems;
-  document.getElementById('subtotal').textContent = `$${totalPrice}`;
-  document.getElementById('total-price').textContent = `$${totalPrice}`;
+  document.getElementById('total-price').textContent = `$${totalPrice.toFixed(2)}`;
 }
 
 // Global functions for cart operations
@@ -142,34 +169,99 @@ window.removeFromCart = function(productId) {
   }
 };
 
-// Validate contact form
-function validateContactForm() {
+// Validate contact form for email
+function validateContactFormForEmail() {
   const name = document.getElementById('contact-name').value.trim();
   const phone = document.getElementById('contact-phone').value.trim();
   const email = document.getElementById('contact-email').value.trim();
   
   if (!name) {
-    showNotification('Por favor ingresa tu nombre', 'error');
+    alert('Por favor ingresa tu nombre completo');
     return false;
   }
   
-  if (!phone && !email) {
-    showNotification('Por favor ingresa tu teléfono o email', 'error');
+  if (!phone) {
+    alert('Por favor ingresa tu teléfono');
     return false;
   }
   
-  if (email && !isValidEmail(email)) {
-    showNotification('Por favor ingresa un email válido', 'error');
+  if (!email) {
+    alert('Por favor ingresa tu email');
+    return false;
+  }
+  
+  // Basic email validation
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(email)) {
+    alert('Por favor ingresa un email válido');
     return false;
   }
   
   return true;
 }
 
-// Validate email format
-function isValidEmail(email) {
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  return emailRegex.test(email);
+// Generate order message for WhatsApp or Email
+function generateOrderMessage() {
+  const contact = getContactInfo();
+  const currentDate = new Date().toLocaleDateString('es-AR');
+  
+  let message = `🛒 NUEVO PEDIDO - ORTHODONTIKA\n`;
+  message += `📅 Fecha: ${currentDate}\n\n`;
+  
+  // Add contact info only if provided
+  const hasContactInfo = contact.name || contact.phone || contact.email;
+  if (hasContactInfo) {
+    message += `👤 INFORMACIÓN DEL CLIENTE:\n`;
+    if (contact.name) message += `• Nombre: ${contact.name}\n`;
+    if (contact.phone) message += `• Teléfono: ${contact.phone}\n`;
+    if (contact.email) message += `• Email: ${contact.email}\n`;
+    message += `\n`;
+  }
+  
+  message += `📦 PRODUCTOS SOLICITADOS:\n`;
+  message += `─────────────────────────\n`;
+  
+  // Group by category for better organization
+  const categorySummary = {};
+  appState.carrito.forEach(item => {
+    if (!categorySummary[item.categoria]) {
+      categorySummary[item.categoria] = [];
+    }
+    categorySummary[item.categoria].push(item);
+  });
+
+  Object.entries(categorySummary).forEach(([categoria, items]) => {
+    message += `\n📂 ${categoria.toUpperCase()}:\n`;
+    items.forEach((item, index) => {
+      message += `   ${index + 1}. ${item.nombre}\n`;
+      message += `      • Código: ${item.id}\n`;
+      message += `      • Marca: ${item.marca}\n`;
+      message += `      • Cantidad: ${item.cantidad}\n`;
+      message += `      • Precio unitario: $${item.precio}\n`;
+      message += `      • Subtotal: $${(item.precio * item.cantidad).toFixed(2)}\n`;
+    });
+  });
+  
+  message += `\n─────────────────────────\n`;
+  message += `📊 RESUMEN:\n`;
+  
+  // Add category summary
+  Object.entries(categorySummary).forEach(([categoria, items]) => {
+    const count = items.reduce((sum, item) => sum + item.cantidad, 0);
+    message += `• ${categoria}: ${count} productos\n`;
+  });
+  
+  message += `• Total de productos: ${appState.getTotalItems()}\n`;
+  message += `• TOTAL ESTIMADO: $${appState.getTotal().toFixed(2)}\n\n`;
+  
+  if (contact.comments) {
+    message += `💬 COMENTARIOS:\n${contact.comments}\n\n`;
+  }
+  
+  message += `¡Gracias por contactarnos! 🙏\n`;
+  message += `Nos pondremos en contacto contigo a la brevedad para confirmar precios y disponibilidad.`;
+
+  return message;
 }
 
 // Get contact information
@@ -182,47 +274,6 @@ function getContactInfo() {
   };
 }
 
-// Generate order message
-function generateOrderMessage() {
-  const contact = getContactInfo();
-  const currentDate = new Date().toLocaleDateString('es-AR');
-  
-  let message = `🛒 NUEVO PEDIDO - ORTHODONTIKA\n`;
-  message += `📅 Fecha: ${currentDate}\n\n`;
-  
-  message += `👤 INFORMACIÓN DEL CLIENTE:\n`;
-  message += `• Nombre: ${contact.name}\n`;
-  if (contact.phone) message += `• Teléfono: ${contact.phone}\n`;
-  if (contact.email) message += `• Email: ${contact.email}\n`;
-  message += `\n`;
-  
-  message += `📦 PRODUCTOS SOLICITADOS:\n`;
-  message += `─────────────────────────\n`;
-  
-  appState.carrito.forEach((item, index) => {
-    message += `${index + 1}. ${item.nombre}\n`;
-    message += `   • Código: ${item.id}\n`;
-    message += `   • Marca: ${item.marca}\n`;
-    message += `   • Cantidad: ${item.cantidad}\n`;
-    message += `   • Precio unitario: $${item.precio}\n`;
-    message += `   • Subtotal: $${item.precio * item.cantidad}\n\n`;
-  });
-  
-  message += `─────────────────────────\n`;
-  message += `📊 RESUMEN:\n`;
-  message += `• Total de productos: ${appState.getTotalItems()}\n`;
-  message += `• TOTAL A PAGAR: $${appState.getTotal()}\n\n`;
-  
-  if (contact.comments) {
-    message += `💬 COMENTARIOS:\n${contact.comments}\n\n`;
-  }
-  
-  message += `¡Gracias por contactarnos! 🙏\n`;
-  message += `Nos pondremos en contacto contigo a la brevedad.`;
-  
-  return message;
-}
-
 // Send to WhatsApp
 function sendToWhatsApp() {
   if (appState.carrito.length === 0) {
@@ -230,8 +281,7 @@ function sendToWhatsApp() {
     return;
   }
   
-  if (!validateContactForm()) return;
-  
+  // WhatsApp doesn't require contact form validation
   const message = generateOrderMessage();
   const whatsappNumber = '5491123456789'; // Replace with actual number
   const encodedMessage = encodeURIComponent(message);
@@ -249,7 +299,8 @@ function sendByEmail() {
     return;
   }
   
-  if (!validateContactForm()) return;
+  // Email requires contact form validation
+  if (!validateContactFormForEmail()) return;
   
   const contact = getContactInfo();
   const message = generateOrderMessage();
