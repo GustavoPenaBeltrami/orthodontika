@@ -40,7 +40,7 @@ function loadCategories() {
         const firstProduct = categoryProducts[0];
         
         return `
-          <div class="card group cursor-pointer" onclick="window.location.href='/productos?categoria=${encodeURIComponent(categoria)}'">
+          <div class="card group cursor-pointer" onclick="window.location.href='/productos.html?categoria=${encodeURIComponent(categoria)}'">
       <div class="aspect-square bg-gray-200 overflow-hidden">
         <img src="${firstProduct?.img || '/placeholder.png'}" 
              alt="${categoria}" 
