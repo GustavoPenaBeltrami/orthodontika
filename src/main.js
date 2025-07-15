@@ -34,7 +34,7 @@ function loadCategories() {
   const categories = [...new Set(productos.map(p => p.categoria))];
   
   categoriesContainer.innerHTML = `
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
+    <div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-5 gap-8">
       ${categories.map(categoria => {
         const categoryProducts = productos.filter(p => p.categoria === categoria);
         const firstProduct = categoryProducts[0];
