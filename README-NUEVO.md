@@ -163,7 +163,7 @@ El carrito utiliza localStorage para persistir entre sesiones y incluye:
 
 👤 INFORMACIÓN DEL CLIENTE:
 • Nombre: Juan Pérez
-• Teléfono: +54 11 1234-5678
+• Teléfono: +54 9 351 760-4756
 • Email: juan@email.com
 
 📦 PRODUCTOS SOLICITADOS:
