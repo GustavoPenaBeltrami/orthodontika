@@ -239,7 +239,7 @@ function loadProducts() {
           </div>
           
           <div class="flex items-center justify-between mb-4">
-            <span class="text-xl font-bold text-primary-800">$${producto.precio}</span>
+            <span class="text-xl font-bold text-primary-800">$${appState.formatPrice(producto.precio)}</span>
           </div>
           
           <div class="space-y-2">

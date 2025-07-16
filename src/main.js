@@ -34,7 +34,7 @@ function loadCategories() {
   const categories = [...new Set(productos.map(p => p.categoria))];
   
   categoriesContainer.innerHTML = `
-    <div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-5 gap-8">
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
       ${categories.map(categoria => {
         const categoryProducts = productos.filter(p => p.categoria === categoria);
         const firstProduct = categoryProducts[0];
@@ -102,7 +102,7 @@ function loadFeaturedProducts() {
         <h3 class="text-lg font-semibold mb-2 line-clamp-2">${producto.nombre}</h3>
         <p class="text-sm text-gray-600 mb-2">${producto.categoria}</p>
         <div class="flex items-center justify-between mb-4">
-          <span class="text-xl font-bold text-primary-800">$${producto.precio}</span>
+          <span class="text-xl font-bold text-primary-800">$${appState.formatPrice(producto.precio)}</span>
           ${producto.enOferta ? '<span class="bg-accent-100 text-accent-800 text-xs px-2 py-1 rounded font-medium">OFERTA</span>' : ''}
         </div>
         <div class="space-y-2">
@@ -135,23 +135,44 @@ window.addToCart = function(productId) {
 
 // Show notification
 function showNotification(message) {
+  // Calculate position based on existing notifications
+  const existingNotifications = document.querySelectorAll('.notification-toast');
+  const notificationHeight = 60; // Approximate height of notification + gap
+  const bottomOffset = 16 + (existingNotifications.length * notificationHeight); // 16px base + height for each existing
+  
   // Create notification element
   const notification = document.createElement('div');
-  notification.className = 'fixed bottom-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50 transform translate-y-full transition-transform duration-300';
+  notification.className = 'notification-toast fixed right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50 transform translate-x-full transition-all duration-300';
+  notification.style.bottom = `${bottomOffset}px`;
   notification.textContent = message;
   
   document.body.appendChild(notification);
   
-  // Show notification
+  // Show notification (slide in from right)
   setTimeout(() => {
-    notification.classList.remove('translate-y-full');
+    notification.classList.remove('translate-x-full');
   }, 100);
   
   // Hide notification after 3 seconds
   setTimeout(() => {
-    notification.classList.add('translate-y-full');
+    notification.classList.add('translate-x-full');
     setTimeout(() => {
-      document.body.removeChild(notification);
+      if (notification.parentNode) {
+        document.body.removeChild(notification);
+        // Reposition remaining notifications
+        repositionNotifications();
+      }
     }, 300);
   }, 3000);
+}
+
+// Reposition notifications when one is removed
+function repositionNotifications() {
+  const notifications = document.querySelectorAll('.notification-toast');
+  const notificationHeight = 60;
+  
+  notifications.forEach((notification, index) => {
+    const bottomOffset = 16 + (index * notificationHeight);
+    notification.style.bottom = `${bottomOffset}px`;
+  });
 }

@@ -17,6 +17,9 @@ document.addEventListener('DOMContentLoaded', () => {
   // Setup event listeners
   setupEventListeners();
   
+  // Setup global click handler for cart buttons (fallback)
+  setupGlobalClickHandlers();
+  
   // Load cart
   loadCart();
   
@@ -26,20 +29,80 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Setup event listeners
 function setupEventListeners() {
-  // Clear cart button
-  document.getElementById('clear-cart').addEventListener('click', () => {
-    if (confirm('¿Estás seguro de que quieres vaciar el carrito?')) {
-      appState.clearCarrito();
+  // Clear cart button - this one is always available
+  const clearCartBtn = document.getElementById('clear-cart');
+  if (clearCartBtn) {
+    clearCartBtn.addEventListener('click', () => {
+      if (confirm('¿Estás seguro de que quieres vaciar el carrito?')) {
+        appState.clearCarrito();
+      }
+    });
+  }
+}
+
+// Setup global click handlers as fallback
+function setupGlobalClickHandlers() {
+  document.addEventListener('click', function(e) {
+    if (e.target.id === 'send-whatsapp' || e.target.closest('#send-whatsapp')) {
+      console.log('Global WhatsApp click handler triggered');
+      e.preventDefault();
+      e.stopPropagation();
+      sendToWhatsApp();
+    }
+    
+    if (e.target.id === 'send-email' || e.target.closest('#send-email')) {
+      console.log('Global Email click handler triggered');
+      e.preventDefault();
+      e.stopPropagation();
+      sendByEmail();
     }
   });
+}
+
+// Setup cart action buttons - called after cart is loaded
+function setupCartActionButtons() {
+  console.log('Setting up cart action buttons...');
   
-  // Send buttons
-  document.getElementById('send-whatsapp').addEventListener('click', sendToWhatsApp);
-  document.getElementById('send-email').addEventListener('click', sendByEmail);
+  // Send buttons - only add listeners if elements exist
+  const sendWhatsAppBtn = document.getElementById('send-whatsapp');
+  const sendEmailBtn = document.getElementById('send-email');
+  
+  console.log('WhatsApp button found:', !!sendWhatsAppBtn);
+  console.log('Email button found:', !!sendEmailBtn);
+  
+  if (sendWhatsAppBtn) {
+    // Remove any existing onclick handlers
+    sendWhatsAppBtn.onclick = null;
+    
+    // Add new event listener
+    sendWhatsAppBtn.addEventListener('click', function(e) {
+      console.log('WhatsApp button clicked!');
+      e.preventDefault();
+      e.stopPropagation();
+      sendToWhatsApp();
+    });
+    console.log('WhatsApp event listener added');
+  }
+  
+  if (sendEmailBtn) {
+    // Remove any existing onclick handlers
+    sendEmailBtn.onclick = null;
+    
+    // Add new event listener
+    sendEmailBtn.addEventListener('click', function(e) {
+      console.log('Email button clicked!');
+      e.preventDefault();
+      e.stopPropagation();
+      sendByEmail();
+    });
+    console.log('Email event listener added');
+  }
 }
 
 // Load cart content
 function loadCart() {
+  console.log('Loading cart, items count:', appState.carrito.length);
+  
   const emptyCart = document.getElementById('empty-cart');
   const cartWithItems = document.getElementById('cart-with-items');
   
@@ -57,6 +120,11 @@ function loadCart() {
   
   // Update summary
   updateSummary();
+  
+  // Setup action buttons after cart is visible
+  setTimeout(() => {
+    setupCartActionButtons();
+  }, 100);
 }
 
 // Load cart items list
@@ -104,12 +172,12 @@ function loadCartItems() {
         <div class="flex flex-col items-end space-y-2">
           <div class="text-right">
             <p class="text-sm text-gray-500">Precio unitario</p>
-            <p class="text-lg font-semibold text-gray-900">$${item.precio}</p>
+            <p class="text-lg font-semibold text-gray-900">$${appState.formatPrice(item.precio)}</p>
           </div>
           
           <div class="text-right">
             <p class="text-sm text-gray-500">Subtotal</p>
-            <p class="text-xl font-bold text-primary-800">$${item.precio * item.cantidad}</p>
+            <p class="text-xl font-bold text-primary-800">$${appState.formatPrice(item.precio * item.cantidad)}</p>
           </div>
           
           <button onclick="removeFromCart('${item.id}')" 
@@ -155,7 +223,7 @@ function updateSummary() {
   }
   
   document.getElementById('total-items').textContent = totalItems;
-  document.getElementById('total-price').textContent = `$${totalPrice.toFixed(2)}`;
+  document.getElementById('total-price').textContent = `$${totalPrice.toLocaleString('es-AR')}`;
 }
 
 // Global functions for cart operations
@@ -202,64 +270,16 @@ function validateContactFormForEmail() {
 
 // Generate order message for WhatsApp or Email
 function generateOrderMessage() {
-  const contact = getContactInfo();
-  const currentDate = new Date().toLocaleDateString('es-AR');
-  
-  let message = `🛒 NUEVO PEDIDO - ORTHODONTIKA\n`;
-  message += `📅 Fecha: ${currentDate}\n\n`;
-  
-  // Add contact info only if provided
-  const hasContactInfo = contact.name || contact.phone || contact.email;
-  if (hasContactInfo) {
-    message += `👤 INFORMACIÓN DEL CLIENTE:\n`;
-    if (contact.name) message += `• Nombre: ${contact.name}\n`;
-    if (contact.phone) message += `• Teléfono: ${contact.phone}\n`;
-    if (contact.email) message += `• Email: ${contact.email}\n`;
-    message += `\n`;
-  }
-  
-  message += `📦 PRODUCTOS SOLICITADOS:\n`;
-  message += `─────────────────────────\n`;
-  
-  // Group by category for better organization
-  const categorySummary = {};
+  const totalPriceWhatsapp = appState.getTotal();
+  let message = '¡Hola! Me interesa realizar el siguiente pedido:\n\n';
+
   appState.carrito.forEach(item => {
-    if (!categorySummary[item.categoria]) {
-      categorySummary[item.categoria] = [];
-    }
-    categorySummary[item.categoria].push(item);
+    message += `• ${item.nombre} x${item.cantidad}\n`;
+    message += `  $${appState.formatPrice(item.precio * item.cantidad)} ARS\n\n`;
   });
 
-  Object.entries(categorySummary).forEach(([categoria, items]) => {
-    message += `\n📂 ${categoria.toUpperCase()}:\n`;
-    items.forEach((item, index) => {
-      message += `   ${index + 1}. ${item.nombre}\n`;
-      message += `      • Código: ${item.id}\n`;
-      message += `      • Marca: ${item.marca}\n`;
-      message += `      • Cantidad: ${item.cantidad}\n`;
-      message += `      • Precio unitario: $${item.precio}\n`;
-      message += `      • Subtotal: $${(item.precio * item.cantidad).toFixed(2)}\n`;
-    });
-  });
-  
-  message += `\n─────────────────────────\n`;
-  message += `📊 RESUMEN:\n`;
-  
-  // Add category summary
-  Object.entries(categorySummary).forEach(([categoria, items]) => {
-    const count = items.reduce((sum, item) => sum + item.cantidad, 0);
-    message += `• ${categoria}: ${count} productos\n`;
-  });
-  
-  message += `• Total de productos: ${appState.getTotalItems()}\n`;
-  message += `• TOTAL ESTIMADO: $${appState.getTotal().toFixed(2)}\n\n`;
-  
-  if (contact.comments) {
-    message += `💬 COMENTARIOS:\n${contact.comments}\n\n`;
-  }
-  
-  message += `¡Gracias por contactarnos! 🙏\n`;
-  message += `Nos pondremos en contacto contigo a la brevedad para confirmar precios y disponibilidad.`;
+  message += `Total: $${totalPriceWhatsapp.toLocaleString('es-AR')} ARS en total.\n\n`;
+  message += 'Muchas gracias!';
 
   return message;
 }
@@ -276,6 +296,9 @@ function getContactInfo() {
 
 // Send to WhatsApp
 function sendToWhatsApp() {
+  console.log('sendToWhatsApp function called');
+  console.log('Cart length:', appState.carrito.length);
+  
   if (appState.carrito.length === 0) {
     showNotification('El carrito está vacío', 'error');
     return;
@@ -283,10 +306,13 @@ function sendToWhatsApp() {
   
   // WhatsApp doesn't require contact form validation
   const message = generateOrderMessage();
+  console.log('Generated message:', message);
+  
   const whatsappNumber = '5493517604756'; // Replace with actual number
   const encodedMessage = encodeURIComponent(message);
   const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
   
+  console.log('Opening WhatsApp URL:', whatsappURL);
   window.open(whatsappURL, '_blank');
   
   showNotification('Redirigiendo a WhatsApp...', 'success');

@@ -181,12 +181,15 @@ export function createHeader() {
         <div class="flex flex-col h-full">
           <!-- Modal Header -->
           <div class="flex items-center justify-between p-4 border-b">
-            <h2 class="text-lg font-semibold">Carrito de Compras</h2>
-            <button id="close-cart" class="p-2 hover:bg-gray-100 rounded">
-              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-              </svg>
-            </button>
+          <div>
+          <h2 class="text-lg font-semibold">Carrito de Compras</h2>
+          <p class="text-sm text-gray-600">Los precios los tenemos en USD, cambiado automaticamente en pesos, la cotizacion puede variar con la realidad.</p>
+          </div>
+          <button id="close-cart" class="p-2 hover:bg-gray-100 rounded">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+          </button>
           </div>
 
           <!-- Cart Items -->
@@ -442,7 +445,7 @@ function updateCartModal() {
         </div>
         <div class="flex-1 min-w-0">
           <h4 class="text-sm font-medium line-clamp-2 mb-1">${item.nombre}</h4>
-          <p class="text-sm text-gray-500 mb-2">$${item.precio} c/u</p>
+          <p class="text-sm text-gray-500 mb-2">$${appState.formatPrice(item.precio)} c/u</p>
           
           <!-- Quantity Controls -->
           <div class="flex items-center space-x-2 mb-2">
@@ -462,7 +465,7 @@ function updateCartModal() {
             </button>
           </div>
           
-          <p class="text-sm font-semibold text-primary-800">Subtotal: $${(item.precio * item.cantidad).toFixed(2)}</p>
+          <p class="text-sm font-semibold text-primary-800">Subtotal: $${appState.formatPrice(item.precio * item.cantidad)}</p>
         </div>
         
         <button onclick="removeFromCart('${item.id}')" class="text-red-500 hover:text-red-700 p-1">
@@ -474,7 +477,7 @@ function updateCartModal() {
     `).join('');
   }
 
-  cartTotal.textContent = `$${appState.getTotal().toFixed(2)}`;
+  cartTotal.textContent = `$${appState.getTotal().toLocaleString('es-AR')}`;
 }
 
 // Función global para remover del carrito
@@ -493,6 +496,8 @@ window.updateCartQuantity = function (productId, newQuantity) {
 
 // Enviar carrito por WhatsApp
 function sendWhatsAppMessage() {
+
+  const totalPriceWhatsapp = appState.getTotal();
   if (appState.carrito.length === 0) {
     alert('El carrito está vacío');
     return;
@@ -501,13 +506,11 @@ function sendWhatsAppMessage() {
   let message = '¡Hola! Me interesa realizar el siguiente pedido:\n\n';
 
   appState.carrito.forEach(item => {
-    message += `• ${item.nombre}\n`;
-    message += `  Cantidad: ${item.cantidad}\n`;
-    message += `  Precio unitario: $${item.precio}\n`;
-    message += `  Subtotal: $${item.precio * item.cantidad}\n\n`;
+    message += `• ${item.nombre} x${item.cantidad}\n`;
+    message += `  $${appState.formatPrice(item.precio * item.cantidad)} ARS\n\n`;
   });
 
-  message += `Total: $${appState.getTotal()}\n\n`;
+  message += `Total: $${totalPriceWhatsapp.toLocaleString('es-AR')} ARS en total.\n\n`;
   message += 'Muchas gracias!';
 
   const whatsappNumber = '5493517604756'; // Reemplazar con el número real

@@ -51,6 +51,12 @@ function setupEventListeners() {
   
   // Share button
   document.getElementById('share-btn').addEventListener('click', shareProduct);
+  
+  // Window resize listener for related products
+  window.addEventListener('resize', () => {
+    clearTimeout(window.resizeTimeout);
+    window.resizeTimeout = setTimeout(loadRelatedProducts, 250);
+  });
 }
 
 // Load product from URL parameter
@@ -163,7 +169,7 @@ function displayProduct() {
   }
   
   // Price
-  document.getElementById('product-price').textContent = `$${product.precio}`;
+  document.getElementById('product-price').textContent = `$${appState.formatPrice(product.precio)}`;
   
   // Offer badge
   if (product.enOferta) {
@@ -230,8 +236,8 @@ function addToCart() {
 // Share to WhatsApp
 function shareToWhatsApp() {
   if (!currentProduct) return;
-  
-  const message = `¡Mira este producto de Orthodontika!\n\n${currentProduct.nombre}\nPrecio: $${currentProduct.precio}\n\n${window.location.href}`;
+
+  const message = `¡Hola! Quiero consultar por este producto: \n\n${currentProduct.nombre}\nPrecio: $${appState.formatPrice(currentProduct.precio)} ARS\n\n${window.location.href}`;
   const whatsappNumber = '5493517604756'; // Replace with actual number
   const encodedMessage = encodeURIComponent(message);
   const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
@@ -261,10 +267,18 @@ function shareProduct() {
 function loadRelatedProducts() {
   if (!currentProduct) return;
   
+  // Determine product count based on viewport width
+  let productCount = 5; // Default for lg+ (5 columns)
+  
+  // Base to md inclusive: 6 products (2-3 columns)
+  if (window.innerWidth < 1024) { // Below lg breakpoint
+    productCount = 6;
+  }
+  
   // Find products in the same category (excluding current product)
   const relatedProducts = productos
     .filter(p => p.categoria === currentProduct.categoria && p.id !== currentProduct.id)
-    .slice(0, 4);
+    .slice(0, productCount);
   
   if (relatedProducts.length === 0) return;
   
@@ -282,7 +296,7 @@ function loadRelatedProducts() {
         <h3 class="text-lg font-semibold mb-2 line-clamp-2">${producto.nombre}</h3>
         <p class="text-sm text-gray-600 mb-2">${producto.marca}</p>
         <div class="flex items-center justify-between">
-          <span class="text-xl font-bold text-primary-800">$${producto.precio}</span>
+          <span class="text-xl font-bold text-primary-800">$${appState.formatPrice(producto.precio)}</span>
           ${producto.enOferta ? '<span class="bg-accent-100 text-accent-800 text-xs px-2 py-1 rounded font-medium">OFERTA</span>' : ''}
         </div>
       </div>

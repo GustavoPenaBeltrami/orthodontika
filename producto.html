@@ -45,7 +45,7 @@
                     <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
                         <!-- Product Images -->
                         <div class="space-y-4">
-                            <div class="aspect-w-1 aspect-h-1 bg-gray-200 rounded-xl overflow-hidden">
+                            <div class="aspect-w-1 aspect-h-1 w-max-[#100vw] md:w-max-[300px] bg-gray-200 rounded-xl overflow-hidden">
                                 <img id="main-image" src="" alt="" class="w-full h-auto object-cover">
                             </div>
                             
@@ -90,7 +90,11 @@
                             <div class="space-y-6">
                                 <div class="flex items-baseline space-x-4">
                                     <span id="product-price" class="text-4xl font-bold text-primary-800"></span>
+                                    <span class="text-sm text-gray-500">ARS</span>
                                     <span id="offer-badge" class="hidden bg-accent-100 text-accent-800 text-sm px-3 py-1 rounded-full font-medium">¡En oferta!</span>
+                                </div>
+                                <div class="text-xs text-gray-400 -mt-3">
+                                    * Los precios los tenemos en USD, cambiado automaticamente en pesos, la cotizacion puede variar con la realidad.
                                 </div>
 
                                 <!-- Quantity Selector -->
@@ -99,7 +103,7 @@
                                     <div class="flex items-center border border-gray-300 rounded-lg">
                                         <button id="quantity-minus" class="px-3 py-2 text-gray-600 hover:text-gray-800">-</button>
                                         <input id="quantity-input" type="number" value="1" min="1" max="99" 
-                                               class="w-16 text-center border-0 focus:ring-0">
+                                               class="w-16 text-center border-0 focus:ring-0 bg-transparent">
                                         <button id="quantity-plus" class="px-3 py-2 text-gray-600 hover:text-gray-800">+</button>
                                     </div>
                                 </div>
@@ -143,7 +147,7 @@
         <section id="related-products-section" class="py-12 bg-white hidden">
             <div class="container mx-auto px-4">
                 <h2 class="text-3xl font-bold text-gray-900 mb-8 text-center">Productos Relacionados</h2>
-                <div id="related-products" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div id="related-products" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
                     <!-- Related products will be populated here -->
                 </div>
             </div>
