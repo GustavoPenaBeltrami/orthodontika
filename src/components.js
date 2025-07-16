@@ -8,7 +8,7 @@ export function createHeader() {
         <div class="flex items-center justify-between py-4">
           <!-- Logo -->
           <a href="/" class="flex items-center space-x-2">
-            <img src="/LogoOrthodontika2.png" alt="Orthodontika" class="h-12 w-auto">
+            <img src="/LogoOrthodontika2.png" alt="Orthodontika" class="md:h-12 md:w-auto h-auto max-w-[70vw]">
           </a>
 
           <!-- Navigation Desktop -->
@@ -217,26 +217,26 @@ export function createHeader() {
 // Componente Footer
 export function createFooter() {
   return `
-    <footer class="bg-gray-50 text-black">
+    <footer class="bg-primary-900 text-white">
       <div class="container mx-auto px-4 py-12">
         <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
           <!-- Company Info -->
           <div class="col-span-1 md:col-span-2">
             <div class="flex items-center space-x-2 mb-4">
-              <img src="/LogoOrthodontika2.png" alt="Orthodontika" class="h-10 w-auto">
+              <img src="/logo-arg-blanco.png" alt="Orthodontika" class="h-10 w-auto">
             </div>
-            <p class="text-gray-800 mb-4">
+            <p class="text-gray-50 mb-4">
               Especialistas en productos ortodónticos de alta calidad. 
               Ofrecemos brackets, alicates, accesorios y todo lo necesario para tu práctica profesional.
             </p>
             <div class="flex space-x-4">
-              <a href="#" class="text-gray-800 hover:text-white transition-colors">
+              <a href="#" class="text-gray-50 hover:text-accent-600 transition-colors">
                 <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24"><path fill="currentColor" d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2m-.2 2A3.6 3.6 0 0 0 4 7.6v8.8C4 18.39 5.61 20 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6C20 5.61 18.39 4 16.4 4zm9.65 1.5a1.25 1.25 0 0 1 1.25 1.25A1.25 1.25 0 0 1 17.25 8A1.25 1.25 0 0 1 16 6.75a1.25 1.25 0 0 1 1.25-1.25M12 7a5 5 0 0 1 5 5a5 5 0 0 1-5 5a5 5 0 0 1-5-5a5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3a3 3 0 0 0 3 3a3 3 0 0 0 3-3a3 3 0 0 0-3-3"/></svg>
               </a>
-              <a href="#" class="text-gray-800 hover:text-white transition-colors">
+              <a href="#" class="text-gray-50 hover:text-accent-600 transition-colors">
                 <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24"><path fill="currentColor" d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c5.05-.5 9-4.76 9-9.95"/></svg>
               </a>
-              <a href="#" class="text-gray-800 hover:text-white transition-colors">
+              <a href="#" class="text-gray-50 hover:text-accent-600 transition-colors">
                 <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24"><path fill="currentColor" d="M16.6 5.82s.51.5 0 0A4.28 4.28 0 0 1 15.54 3h-3.09v12.4a2.59 2.59 0 0 1-2.59 2.5c-1.42 0-2.6-1.16-2.6-2.6c0-1.72 1.66-3.01 3.37-2.48V9.66c-3.45-.46-6.47 2.22-6.47 5.64c0 3.33 2.76 5.7 5.69 5.7c3.14 0 5.69-2.55 5.69-5.7V9.01a7.35 7.35 0 0 0 4.3 1.38V7.3s-1.88.09-3.24-1.48"/></svg>
               </a>
             </div>
@@ -246,22 +246,22 @@ export function createFooter() {
           <div>
             <h3 class="text-lg font-semibold mb-4">Enlaces Rápidos</h3>
             <ul class="space-y-2">
-              <li><a href="/" class="text-gray-800 hover:text-gray-500 transition-colors">Inicio</a></li>
-              <li><a href="/productos.html" class="text-gray-800 hover:text-gray-500 transition-colors">Productos</a></li>
-              <li><a href="/carrito.html" class="text-gray-800 hover:text-gray-500 transition-colors">Carrito</a></li>
+              <li><a href="/" class="text-gray-50 hover:text-accent-600 transition-colors">Inicio</a></li>
+              <li><a href="/productos.html" class="text-gray-50 hover:text-accent-600 transition-colors">Productos</a></li>
+              <li><a href="/carrito.html" class="text-gray-50 hover:text-accent-600 transition-colors">Carrito</a></li>
             </ul>
           </div>
 
           <!-- Contact Info -->
           <div>
             <h3 class="text-lg font-semibold mb-4">Contacto</h3>
-            <ul class="space-y-2 text-gray-800">
+            <ul class="space-y-2 text-gray-50">
               <li class="flex items-center space-x-2">
                 <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                   <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path>
                   <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path>
                 </svg>
-                <span>info@orthodontika.com</span>
+                <span>orthodontika@gmail.com</span>
               </li>
               <li class="flex items-center space-x-2">
                 <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
@@ -279,7 +279,7 @@ export function createFooter() {
           </div>
         </div>
 
-        <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-800">
+        <div class="border-t border-gray-50 mt-8 pt-8 text-center text-gray-50">
           <p>&copy; 2025 Orthodontika. Todos los derechos reservados.</p>
         </div>
       </div>
@@ -529,7 +529,7 @@ export function createFloatingWhatsAppButton() {
                 class="bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-lg transition-all duration-300 hover:scale-105 group"
                 title="Contactar por WhatsApp"
             >
-                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 2.079.53 4.126 1.534 5.932L0 24l6.203-1.517c1.746.95 3.712 1.444 5.814 1.444 6.621 0 11.987-5.367 11.987-11.987C23.973 5.367 18.637.001 12.017.001zM12.017 21.947c-1.746 0-3.492-.462-5.006-1.299l-.359-.214-3.714.908.93-3.622-.235-.373c-.922-1.513-1.41-3.259-1.41-5.078 0-5.486 4.466-9.952 9.952-9.952s9.952 4.466 9.952 9.952-4.466 9.952-9.952 9.952z"/>
                     <path d="M17.233 14.268c-.301-.151-1.78-.879-2.056-.979-.277-.101-.478-.151-.679.151-.201.301-.78.979-.958 1.179-.177.201-.354.226-.655.075-.301-.151-1.271-.469-2.42-1.493-.895-.798-1.5-1.785-1.677-2.086-.177-.301-.019-.464.132-.614.135-.135.301-.354.452-.531.15-.177.201-.301.301-.502.101-.201.051-.377-.025-.528-.075-.151-.679-1.636-.93-2.241-.245-.587-.494-.508-.679-.517-.177-.008-.378-.01-.579-.01-.201 0-.528.075-.804.377-.277.301-1.057 1.033-1.057 2.518s1.082 2.92 1.233 3.121c.151.201 2.133 3.259 5.168 4.571.722.312 1.286.498 1.726.637.725.231 1.386.198 1.909.12.583-.087 1.78-.728 2.032-1.431.252-.703.252-1.305.177-1.431-.075-.125-.277-.201-.578-.352z"/>
                 </svg>
