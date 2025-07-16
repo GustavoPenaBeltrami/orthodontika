@@ -7,7 +7,7 @@ const productos = [
     subcategoria1: "Intraorales",
     subcategoria2: "Ceramicos",
     marca: "3B Ortho",
-    precio: 50,
+    precio: 18,
     disponibilidad: true,
     enOferta: false,
     img:"/Accesorios-Todos/LingualRedondo.png",
