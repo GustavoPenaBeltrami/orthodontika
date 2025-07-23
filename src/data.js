@@ -264,21 +264,19 @@ const productos = [
     descripcion: "Bracket metálico convencional, slot 0.022 en prescripciones ROTH y MBT. Slot con forma de trompeta en distal y mesial para reducir considerablemente la fricción. Versión monoblock y con malla 80.",
     
   },
-  {
-    id: "GA-R22-02",
-    nombre: "Galaxy 2.0 Std Bracket ROTH Monoblock 022 5X5 U/L",
-    categoria: "Brackets",
-    subcategoria1: "Metalico",
-    subcategoria2: "Caso Bracket Conv. Metalico / Monoblock",
-    marca: "Creative Ortho",
-    precio: ,
-    disponibilidad: true,
-    enOferta: false,
-    img:"/Brackets/Galaxy.png",
-    descripcion: "Bracket metálico convencional",
-
-    
-  },
+  //{
+  //  id: "GA-R22-02",
+  //  nombre: "Galaxy 2.0 Std Bracket ROTH Monoblock 022 5X5 U/L",
+  //  categoria: "Brackets",
+  //  subcategoria1: "Metalico",
+  //  subcategoria2: "Caso Bracket Conv. Metalico / Monoblock",
+  //  marca: "Creative Ortho",
+  //  precio: ,
+  //  disponibilidad: true,
+  //  enOferta: false,
+  //  img:"/Brackets/Galaxy.png",
+  //  descripcion: "Bracket metálico convencional", 
+  //},
   {
     id: "GA-M22-02",
     nombre: "Galaxy 2.0 Std Bracket MBT Monoblock 022 5X5 U/L",
